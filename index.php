@@ -7,5 +7,5 @@
   $count = $_GET["c"];
   $sql = "insert into handgel ("station_name,count") values ('".$station_name."','".$count."')";
   print $sql;
-  $db -> query($sql);
+  //$db -> query($sql);
 ?>
