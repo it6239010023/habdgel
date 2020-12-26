@@ -1,23 +1,23 @@
 <?php
+  require_once('connect.php');
 
-  $db = new mysqli ('localhost','root','','handgels');
   if(isset($_GET["rfid"])){
 
         $rfid = $_GET["rfid"];
         $temp = $_GET["temp"];
         $heal = $_GET["heal"];
-        $sqla = "insert into checkted (rfidID,temp,st_health) values ('".$rfid."','".$temp."','".$heal."')";
-        $db -> query($sqla);
+        $sql = "insert into checkted (rfidID,temp,st_health) values ('".$rfid."','".$temp."','".$heal."')";
+        $db -> query($sql);
         //print $sqla. " success";
 
         //อัพเดทอุณหภูมินักเรียน
-        $sqlu = "update student set Tempreture = '".$temp."' where rfidID = '".$rfid."'";
-        $db -> query($sqlu);
+        $sql = "update student set Tempreture = '".$temp."' where rfidID = '".$rfid."'";
+        $db -> query($sql);
 
         //หาข้อมูลนักเรียน
-        $sqls = " select * from student where rfidID = ".$_GET["rfid"]."";
+        $sql = " select * from student where rfidID = ".$_GET["rfid"]."";
         //print $sqls ." success";
-        $rst = $db -> query($sqls);
+        $rst = $db -> query($sql);
 
         if ($rst->num_rows > 0) {
             while($row = $rst->fetch_assoc()) {
