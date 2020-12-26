@@ -24,6 +24,9 @@
     <body>
     <?php
     $db = new mysqli ('web.bncc.ac.th','6239010023','pass6239010023','6239010023');
+    if ($db->connect_error) {
+        die("Connection failed: " . $db->connect_error);
+    }else {
 
     $datenow = date('Y-m-d');
     // สรุปผู้ใช้งานทั้งหมด
@@ -41,9 +44,10 @@
     // หาคนร่างกายปรกติ
     $rst = $db->query("select count(temp) as fine from checkted where record like '$datenow%' and temp between 33 and 37");
     $fata = $rst->fetch_assoc();
-    
+    }
 
     ?>
+
     <div class ="container">
         &nbsp;    
                 <nav aria-label="breadcrumb">

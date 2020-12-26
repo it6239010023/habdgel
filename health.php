@@ -1,6 +1,9 @@
 <?php
   $db = new mysqli ('web.bncc.ac.th','6239010023','pass6239010023','6239010023');
-
+  if ($db->connect_error) {
+    die("Connection failed: " . $db->connect_error);
+  }else {
+    
   if(isset($_GET["rfid"])){
 
         $rfid = $_GET["rfid"];
@@ -31,4 +34,5 @@
   }else{
         print "ไม่มีข้อมูล";
     }
+  }
 ?>
