@@ -38,9 +38,9 @@ function getDataFromDb()
 						  $("#myBody").empty();
 						  $.each(obj, function(key, val) {
 									var tr = "<tr>";
+                  tr = tr + "<td>" + val["record"] + "</td>";
 									tr = tr + "<td>" + val["studentID"] + "</td>";
 									tr = tr + "<td>" + val["fullname"] + "</td>";
-									tr = tr + "<td>" + val["record"] + "</td>";
 									tr = tr + "<td>" + val["temp"] + "</td>";
 									tr = tr + "<td>" + val["st_health"] + "</td>";
 									tr = tr + "</tr>";
@@ -157,9 +157,9 @@ setInterval(getdashboard, 1000);
       <!-- head table -->
             <thead>
   <tr>
+  <th > <div align="center">เวลาบันทึก </div></th>
     <th > <div align="center">รหัส</div></th>
     <th > <div align="center">ชื่อ-สกุล </div></th>
-    <th > <div align="center">เวลาบันทึก </div></th>
     <th> <div align="center">อุณหภูมิ</div></th>
     <th> <div align="center">สถานะ</div></th>
   </tr>
