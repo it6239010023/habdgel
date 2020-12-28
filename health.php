@@ -19,7 +19,7 @@
 
         //
         $strSQL = "select id, studentID, prefix, fullname, record, temp, st_health from student st inner join checkted ch on st.rfidID = ch.rfidID ORDER BY ch.id DESC LIMIT 0,5";
-	      $objQuery = $db->query($strSQL);
+        $objQuery = $db->query($strSQL) or die (mysqli_error($db));;
 	      $intNumField = mysqli_num_fields($objQuery);
 	      $resultArray = array();
 	      while($obResult = mysqli_fetch_array($objQuery))
