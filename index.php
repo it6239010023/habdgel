@@ -38,8 +38,8 @@ function getDataFromDb()
 									var tr = "<tr>";
                   tr = tr + "<td>" + val["record"] + "</td>";
 									tr = tr + "<td>" + val["studentID"] + "</td>";
-									tr = tr + "<td>" + val["fullname"] + "</td>";
-									tr = tr + "<td>" + val["temp"] + "</td>";
+									tr = tr + "<td>" + val["prefix"] + val["fullname"] + "</td>";
+									tr = tr + "<td>" + val["temp"] + "ํ  ํC" + "</td>";
 									tr = tr + "<td>" + val["st_health"] + "</td>";
 									tr = tr + "</tr>";
 									$('#myTable > tbody:last').append(tr);
@@ -154,11 +154,11 @@ setInterval(getdashboard, 1000);
               <table class="table table-striped table-bordered" style="width:100%" id="myTable">
             <thead>
   <tr>
-  <th > <div align="center">เวลาบันทึก </div></th>
-    <th > <div align="center">รหัส</div></th>
-    <th > <div align="center">ชื่อ-สกุล </div></th>
-    <th> <div align="center">อุณหภูมิ</div></th>
-    <th> <div align="center">สถานะ</div></th>
+  <th width = "20%"> <div align="center">เวลาบันทึก </div></th>
+    <th width = "10%"> <div align="center">รหัส</div></th>
+    <th width = "10%"> <div align="center">ชื่อ-สกุล </div></th>
+    <th width = "5%"> <div align="center">อุณหภูมิ</div></th>
+    <th width = "5%"> <div align="center">สถานะ</div></th>
   </tr>
 </thead>
 <tbody id="myBody" >
