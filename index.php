@@ -21,8 +21,6 @@
 	</style>
 	
 <script>
-
-
 function getDataFromDb()
 {
 	$.ajax({ 
