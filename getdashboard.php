@@ -1,9 +1,6 @@
 <?php
 //$db = new mysqli("localhost","root","","handgels");
-$db = new mysqli("localhost","6239010023","pass6239010023","6239010023");
-if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
-}else {
+require_once("db.php");
 
 $datenow = date('Y-m-d');
 
@@ -25,7 +22,7 @@ $avgtemp = number_format($data['avgtemp'],2);
 $rst = $db->query("select count(temp) as fine from checkted where record like '$datenow%' and temp between 33 and 37");
 $data = $rst->fetch_assoc();
 $fine = $data['fine'];
-}
+
 
 $outArr=array("total"=>$total,"risk"=>$risk,"avgtemp"=>$avgtemp,"fine"=>$fine);
 $jsonResponse=json_encode($outArr);

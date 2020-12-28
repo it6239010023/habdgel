@@ -58,32 +58,7 @@ setInterval(getDataFromDb, 1000);   // 1000 = 1 second
 </script>
 
     <body>
-    <?php
-    // $db = new mysqli("localhost","6239010023","pass6239010023","6239010023");
-    $db = new mysqli("localhost","root","","handgels");
-    if ($db->connect_error) {
-        die("Connection failed: " . $db->connect_error);
-    }else {
 
-    $datenow = date('Y-m-d');
-    // สรุปผู้ใช้งานทั้งหมด
-    $rst = $db->query("select count(id) as total from checkted where record like '$datenow%'");
-    $data = $rst->fetch_assoc();
-
-    // หาคนเสี่ยงติดโควิด
-    $rst = $db->query("select count(temp) as risk from checkted where record like '$datenow%' and temp between 37.5 and 39");
-    $tata = $rst->fetch_assoc();
-
-    // สรุปอุณหภูมิเฉลี่ย
-    $rst = $db->query("select avg(temp) as avgtemp from checkted where record like '$datenow%' ");
-    $ata = $rst->fetch_assoc();
-
-    // หาคนร่างกายปรกติ
-    $rst = $db->query("select count(temp) as fine from checkted where record like '$datenow%' and temp between 33 and 37");
-    $fata = $rst->fetch_assoc();
-    }
-
-    ?>
 
     <div class ="container">
         &nbsp;    
