@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta http-equiv="refresh" content="3">
+<meta http-equiv="refresh" content="1">
 <head>
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-
     <title>Dashboard</title>
     <style>
         .fa{
@@ -20,7 +19,39 @@
         line-height:26px; 
         }
     </style>
-
+<script>
+  
+  function getDataFromDb()
+  {
+      $.ajax({ 
+                  url: "health.php" ,
+                  type: "POST",
+                  data: ''
+              })
+              .success(function(result) { 
+                  var obj = jQuery.parseJSON(result);
+                      if(obj != '')
+                      {
+                            //$("#myTable tbody tr:not(:first-child)").remove();
+                            $("#myBody").empty();
+                            $.each(obj, function(key, val) {
+                                      var tr = "<tr>";
+                                      tr = tr + "<td>" + val["studentID"] + "</td>";
+                                      tr = tr + "<td>" + val["fullname"] + "</td>";
+                                      tr = tr + "<td>" + val["record"] + "</td>";
+                                      tr = tr + "<td>" + val["temp"] + "</td>";
+                                      tr = tr + "<td>" + val["st_health"] + "</td>";
+                                      tr = tr + "</tr>";
+                                      $('#myTable > tbody:last').append(tr);
+                            });
+                      }
+  
+              });
+  
+  }
+  
+  setInterval(getDataFromDb, 1000);   // 1000 = 1 second
+  </script>
     <body>
     <?php
     $db = new mysqli("localhost","6239010023","pass6239010023","6239010023");
@@ -115,49 +146,28 @@
 
 &nbsp;
 
-<?php
-    $sql = "select id, studentID, prefix, fullname, record, temp, st_health from student st inner join checkted ch on st.rfidID = ch.rfidID ORDER BY ch.id DESC LIMIT 0,5";
-    $rst = $db->query($sql);
-    $arr_users = [];
-
-    if ($rst->num_rows > 0) {
-        $arr_users = $rst->fetch_all(MYSQLI_ASSOC);
-    }
-    ?>
-
-<div class="col-9 col-md-9 col-lg-9 mb-9 mb-lg-0">
+    <div class="col-9 col-md-9 col-lg-9 mb-9 mb-lg-0">
     <div class = "card">
     <h5 class="card-header">นักเรียนที่แจ้งเตือนล่าสุด</h5>
         <div class="card-body">
             <div class="table-responsive">
-                <table id = "example" class="table table-striped table-bordered" style="width:100%"> 
+                <table id= "myTable" class="table table-striped table-bordered" style="width:100%"> 
                     <thead>
-                        <th>เลขประจำตัวนักเรียน</th>
-                        <th>ชื่อ-นามสกุล</th> 
-                        <th>วันเวลาบันทึก</th> 
-                        <th>อุณหภูมิ</th>
-                        <th>สถานะ</th> 
+                    <tr>
+                        <td width = "10%">เลขประจำตัวนักเรียน</td>
+                        <td width = "10%">ชื่อ-นามสกุล</td>
+                        <td width = "10%">วันเวลาบันทึก</td>
+                        <td width = "5%">อุณหภูมิ</td>
+                        <td width = "5%">สถานะ</td>
+                        </tr>
                     </thead>
-                    <tbody>
-                        <?php if(!empty($arr_users)){ ?>
-                            <?php foreach($arr_users as $user){ ?>
-                                <tr>
-                                    <td width = "10%"><?php echo $user['studentID']?></td>
-                                    <td width = "10%"><?php echo $user['prefix'].$user['fullname']?></td>
-                                    <td width = "10%"><?php echo $user['record']?></td>
-                                    <td width = "5%"><?php echo $user['temp']." C*"?></td>
-                                    <td width = "5%"><?php echo $user['st_health']?></td>
-                                </tr>
-                                <?php } 
-                            }
-                        ?>
-                    </tbody>
+                    <tbody id = "myBody"></tbody>
                 </table>
             </div>
         </div>
     </div>
     </div>
-</div>
+    </div>
     </body>
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
