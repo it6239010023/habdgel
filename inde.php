@@ -3,10 +3,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <title>Dashboard</title>
-<style>
+    <style>
         .fa{
         position: relative;
         font-size: 3em;
@@ -18,15 +18,14 @@
         float: right;
         line-height:26px; 
         }
-	</style>
-	
+    </style>
+
 <script>
-
-
+  
 function getDataFromDb()
 {
 	$.ajax({ 
-				url: "record.php" ,
+				url: "stdscan.php" ,
 				type: "POST",
 				data: ''
 			})
@@ -52,35 +51,41 @@ function getDataFromDb()
 
 }
 
- setInterval(getDataFromDb, 1000);// 1000 = 1 second
+setInterval(getDataFromDb, 1000);   // 1000 = 1 second
 
-function getdashboard(){
-    $.ajax({
-  	type: "GET",
-  	url: "getdashboard.php",                 
-  	success: function(data) { 
-    if (data && data.length > 0) {    
-      data=$.parseJSON(data); 
-      $("#totalscan").empty(); 
-      $("#totalscan").append(data.total);
-      $("#risk").empty(); 
-      $("#risk").append(data.risk);
-      $("#fine").empty(); 
-      $("#fine").append(data.fine);
-      $("#avgtemp").empty(); 
-      $("#avgtemp").append(data.avgtemp);
 
-    }
-  }
-})
-}
-setInterval(getdashboard, 1000);
 
 </script>
 
-</head>
-<body>
-<div class ="container">
+    <body>
+    <?php
+    // $db = new mysqli("localhost","6239010023","pass6239010023","6239010023");
+    $db = new mysqli("localhost","root","","handgels");
+    if ($db->connect_error) {
+        die("Connection failed: " . $db->connect_error);
+    }else {
+
+    $datenow = date('Y-m-d');
+    // สรุปผู้ใช้งานทั้งหมด
+    $rst = $db->query("select count(id) as total from checkted where record like '$datenow%'");
+    $data = $rst->fetch_assoc();
+
+    // หาคนเสี่ยงติดโควิด
+    $rst = $db->query("select count(temp) as risk from checkted where record like '$datenow%' and temp between 37.5 and 39");
+    $tata = $rst->fetch_assoc();
+
+    // สรุปอุณหภูมิเฉลี่ย
+    $rst = $db->query("select avg(temp) as avgtemp from checkted where record like '$datenow%' ");
+    $ata = $rst->fetch_assoc();
+
+    // หาคนร่างกายปรกติ
+    $rst = $db->query("select count(temp) as fine from checkted where record like '$datenow%' and temp between 33 and 37");
+    $fata = $rst->fetch_assoc();
+    }
+
+    ?>
+
+    <div class ="container">
         &nbsp;    
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -98,9 +103,9 @@ setInterval(getdashboard, 1000);
                             <div class="fa float-style">
                             <i class="fas fa-users"></i>
                             </div>
-                              <h5 class="card-title"><span id = "totalscan"> </span> คน</h5>
+                              <h5 class="card-title"><?php echo $data['total'] . " คน"?></h5>
                               <p class="card-text">ภาคเรียนที่ 2/2563</p>
-							  <p class="card-text text-success">จำนวนผู้ใช้งานทั้งหมด </p>
+                              <p class="card-text text-success"><?php echo "จำนวนคนวัดอุณหภูมิทั้งหมด " . $data['total'] . " คน"?></p>
                             </div>
                           </div>
                     </div>
@@ -111,9 +116,9 @@ setInterval(getdashboard, 1000);
                             <div class="fa float-style">
                             <i class="fas fa-head-side-cough"></i>
                             </div>
-                              <h5 class="card-title"><span id = "risk"> </span> คน</h5>
+                              <h5 class="card-title"><?php echo $tata['risk'] . " คน"?></h5>
                               <p class="card-text">ภาคเรียนที่ 2/2563</p>
-                              <p class="card-text text-danger">จำนวนคนที่เสี่ยงติดโควิดทั้งหมด</p>
+                              <p class="card-text text-danger"><?php echo "จำนวนคนที่เสี่ยงติดโควิดทั้งหมด " . $tata['risk'] . " คน"?></p>
                             </div>
                           </div>
                     </div>
@@ -124,9 +129,9 @@ setInterval(getdashboard, 1000);
                             <div class="fa float-style">
                             <i class="fas fa-heartbeat"></i>
                             </div>
-                              <h5 class="card-title"><span id = "fine"> </span> คน</h5>
+                              <h5 class="card-title"><?php echo $fata['fine'] . " คน"?></h5>
                               <p class="card-text">ภาคเรียนที่ 2/2563</p>
-                              <p class="card-text text-success">จำนวนคนอุณหภูมิปกติทั้งหมด</p>
+                              <p class="card-text text-success"><?php echo "จำนวนคนอุณหภูมิปกติทั้งหมด " . $fata['fine'] . " คน"?></p>
                             </div>
                           </div>
                     </div>
@@ -137,9 +142,9 @@ setInterval(getdashboard, 1000);
                             <div class="fa float-style">
                             <i class="fas fa-thermometer-three-quarters"></i>
                             </div>
-                              <h5 class="card-title"><span id = "avgtemp"> </span> ํC</h5>
+                              <h5 class="card-title"><?php echo number_format($ata['avgtemp'], 2, ".", ",") . " *C"?></h5>
                               <p class="card-text">ภาคเรียนที่ 2/2563</p>
-                              <p class="card-text text-success">อุณหภูมิร่างกายเฉลี่ยทั้งหมด</p>
+                              <p class="card-text text-success"><?php echo "อุณหภูมิร่างกายเฉลี่ยทั้งหมด " . number_format($ata['avgtemp'], 2, ".", ",") . " *C"?></p>
                             </div>
                         </div>
                     </div>
@@ -147,35 +152,39 @@ setInterval(getdashboard, 1000);
 
 &nbsp;
 
-
- <div class="col-9 col-md-9 col-lg-9 mb-9 mb-lg-0">
+    <!-- <div class="col-9 col-md-9 col-lg-9 mb-9 mb-lg-0">
     <div class = "card">
     <h5 class="card-header">นักเรียนที่แจ้งเตือนล่าสุด</h5>
         <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-striped table-bordered" style="width:100%" id="myTable">
-      <!-- head table -->
-            <thead>
+            <div class="table-responsive"> -->
+            <table width="600" border="1" id="myTable">
+<!-- head table -->
+<thead>
   <tr>
-    <th > <div align="center">รหัส</div></th>
-    <th > <div align="center">ชื่อ-สกุล </div></th>
-    <th > <div align="center">เวลาบันทึก </div></th>
-    <th> <div align="center">อุณหภูมิ</div></th>
-    <th> <div align="center">สถานะ</div></th>
+    <td width="91"> <div align="center">studentID </div></td>
+    <td width="98"> <div align="center">fullname </div></td>
+    <td width="198"> <div align="center">record </div></td>
+    <td width="97"> <div align="center">temp </div></td>
+    <td width="59"> <div align="center">st_health </div></td>
   </tr>
 </thead>
 <!-- body dynamic rows -->
-<tbody id="myBody" >
-
+<tbody id="myBody">
+	
 </tbody>
 </table>
-
-<script src="http://code.jquery.com/jquery-latest.js"></script>
- <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>
+            <!-- </div>
+        </div>
+    </div>
+    </div>
+    </div> -->
+    </body>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> -->
 
-    <script>$(document).ready(function() {
-    $('#myTable').DataTable( {
+    <!-- <script>$(document).ready(function() {
+    $('#example').DataTable( {
         //"pageLength": 3,
         "paging":   false,
         "ordering": false,
@@ -183,7 +192,7 @@ setInterval(getdashboard, 1000);
         "searching": false,
         "lengthChange": false
     } );
-    } );</script>
+    } );</script> -->
+</head>
 
-</body>
 </html>
