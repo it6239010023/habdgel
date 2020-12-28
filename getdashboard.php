@@ -9,7 +9,7 @@ $rst = $db->query("select count(id) as total from checkted where record like '$d
 $data = $rst->fetch_assoc();
 $total = $data['total'];
 // หาคนเสี่ยงติดโควิด
-$rst = $db->query("select count(temp) as risk from checkted where record like '$datenow%' and temp between 37.5 and 39");
+$rst = $db->query("select count(temp) as risk from checkted where record like '$datenow%' and temp < 37.5");
 $data = $rst->fetch_assoc();
 $risk = $data['risk'];
 // สรุปอุณหภูมิเฉลี่ย
@@ -19,10 +19,10 @@ $avgtemp = number_format($data['avgtemp'],2);
 
 
 // หาคนร่างกายปรกติ
-$rst = $db->query("select count(temp) as fine from checkted where record like '$datenow%' and temp between 33 and 37");
+$rst = $db->query("select count(temp) as fine from checkted where record like '$datenow%' and temp > 37.5");
 $data = $rst->fetch_assoc();
 $fine = $data['fine'];
-
+}
 
 $outArr=array("total"=>$total,"risk"=>$risk,"avgtemp"=>$avgtemp,"fine"=>$fine);
 $jsonResponse=json_encode($outArr);
