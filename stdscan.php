@@ -6,7 +6,7 @@ require_once("db.php");
     $objQuery = $db->query($strSQL);
 	$intNumField = $objQuery->field_count;
 	$resultArray = array();
-	while($obResult = $objquery->fetch_array())
+	while($obResult = $objQuery->fetch_array())
 	{
 		$arrCol = array();
 		for($i=0;$i<$intNumField;$i++)
