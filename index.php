@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta http-equiv="refresh" content="1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <title>Dashboard</title>
     <style>
@@ -19,12 +20,13 @@
         line-height:26px; 
         }
     </style>
-<script>
+
+    <script>
   
   function getDataFromDb()
   {
       $.ajax({ 
-                  url: "health.php" ,
+                  url: "health.php",
                   type: "POST",
                   data: ''
               })
@@ -161,7 +163,7 @@
                         <td width = "5%">สถานะ</td>
                         </tr>
                     </thead>
-                    <tbody id = "myBody"></tbody>
+                    <tbody id ="myBody"></tbody>
                 </table>
             </div>
         </div>
