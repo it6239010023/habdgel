@@ -154,7 +154,6 @@ setInterval(getdashboard, 1000);
         <div class="card-body">
             <div class="table-responsive">
               <table class="table table-striped table-bordered" style="width:100%" id="myTable">
-      <!-- head table -->
             <thead>
   <tr>
   <th > <div align="center">เวลาบันทึก </div></th>
@@ -164,7 +163,6 @@ setInterval(getdashboard, 1000);
     <th> <div align="center">สถานะ</div></th>
   </tr>
 </thead>
-<!-- body dynamic rows -->
 <tbody id="myBody" >
 
 </tbody>
