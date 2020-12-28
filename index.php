@@ -154,7 +154,7 @@ setInterval(getdashboard, 1000);
               <table class="table table-striped table-bordered" style="width:100%" id="myTable">
             <thead>
   <tr>
-  <th width = "20%"> <div align="center">เวลาบันทึก </div></th>
+  <th width = "10%"> <div align="center">เวลาบันทึก </div></th>
     <th width = "10%"> <div align="center">รหัส</div></th>
     <th width = "10%"> <div align="center">ชื่อ-สกุล </div></th>
     <th width = "5%"> <div align="center">อุณหภูมิ</div></th>
