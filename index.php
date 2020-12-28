@@ -170,7 +170,7 @@ setInterval(getdashboard, 1000);
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
  <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> -->
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
 
     <script>$(document).ready(function() {
     $('#myTable').DataTable( {
