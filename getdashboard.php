@@ -22,7 +22,7 @@ $avgtemp = number_format($data['avgtemp'],2);
 $rst = $db->query("select count(temp) as fine from checkted where record like '$datenow%' and temp < 37.5");
 $data = $rst->fetch_assoc();
 $fine = $data['fine'];
-}
+
 
 $outArr=array("total"=>$total,"risk"=>$risk,"avgtemp"=>$avgtemp,"fine"=>$fine);
 $jsonResponse=json_encode($outArr);
