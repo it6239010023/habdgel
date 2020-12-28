@@ -3,7 +3,7 @@ require_once("db.php");
 	$strSQL = "select id, studentID, prefix, fullname, record, temp, st_health from student st inner join checkted ch on st.rfidID = ch.rfidID ORDER BY ch.id DESC LIMIT 0,5";
 
     
-    $objQuery = $db->query($objConnect,$strSQL);
+    $objQuery = $db->query($strSQL);
 	$intNumField = $objQuery->field_count;
 	$resultArray = array();
 	while($obResult = $objquery->fetch_array())
