@@ -155,7 +155,7 @@ setInterval(getdashboard, 1000);
             <thead>
   <tr>
   <th width = "10%"> <div align="center">เวลาบันทึก </div></th>
-    <th width = "10%"> <div align="center">รหัส</div></th>
+    <th width = "5%"> <div align="center">รหัส</div></th>
     <th width = "10%"> <div align="center">ชื่อ-สกุล </div></th>
     <th width = "5%"> <div align="center">อุณหภูมิ</div></th>
     <th width = "5%"> <div align="center">สถานะ</div></th>
