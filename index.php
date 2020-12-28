@@ -20,39 +20,7 @@
         line-height:26px; 
         }
     </style>
-<script>
-  
-  function getDataFromDb()
-  {
-      $.ajax({ 
-                  url: "health.php",
-                  type: "POST",
-                  data: ''
-              })
-              .success(function(result) { 
-                  var obj = jQuery.parseJSON(result);
-                      if(obj != '')
-                      {
-                            //$("#myTable tbody tr:not(:first-child)").remove();
-                            $("#myBody").empty();
-                            $.each(obj, function(key, val) {
-                                      var tr = "<tr>";
-                                      tr = tr + "<td>" + val["studentID"] + "</td>";
-                                      tr = tr + "<td>" + val["fullname"] + "</td>";
-                                      tr = tr + "<td>" + val["record"] + "</td>";
-                                      tr = tr + "<td>" + val["temp"] + "</td>";
-                                      tr = tr + "<td>" + val["st_health"] + "</td>";
-                                      tr = tr + "</tr>";
-                                      $('#myTable > tbody:last').append(tr);
-                            });
-                      }
-  
-              });
-  
-  }
-  
-  setInterval(getDataFromDb, 1000);   // 1000 = 1 second
-  </script>
+
     <body>
     <?php
     $db = new mysqli("localhost","6239010023","pass6239010023","6239010023");
@@ -189,6 +157,9 @@
   function getDataFromDb()
   {
       $.ajax({ 
+                  url: "health.php",
+                  type: "POST",
+                  data: ''
               })
               .success(function(result) { 
                   var obj = jQuery.parseJSON(result);
@@ -198,11 +169,11 @@
                             $("#myBody").empty();
                             $.each(obj, function(key, val) {
                                       var tr = "<tr>";
-                                      tr = tr + "<td>" +  + "</td>";
-                                      tr = tr + "<td>" +  + "</td>";
-                                      tr = tr + "<td>" +  + "</td>";
-                                      tr = tr + "<td>" +  + "</td>";
-                                      tr = tr + "<td>" +  + "</td>";
+                                      tr = tr + "<td>" + val["studentID"] + "</td>";
+                                      tr = tr + "<td>" + val["fullname"] + "</td>";
+                                      tr = tr + "<td>" + val["record"] + "</td>";
+                                      tr = tr + "<td>" + val["temp"] + "</td>";
+                                      tr = tr + "<td>" + val["st_health"] + "</td>";
                                       tr = tr + "</tr>";
                                       $('#myTable > tbody:last').append(tr);
                             });
@@ -212,9 +183,8 @@
   
   }
   
-  setInterval(getDataFromDb, 10000);   // 1000 = 1 second
+  setInterval(getDataFromDb, 1000);   // 1000 = 1 second
   </script>
-
 </head>
 
 </html>
