@@ -146,7 +146,7 @@ setInterval(getdashboard, 1000);
 &nbsp;
 
 
- <div class="col-9 col-md-9 col-lg-9 mb-9 mb-lg-0">
+ <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
     <div class = "card">
     <h5 class="card-header">นักเรียนที่แจ้งเตือนล่าสุด</h5>
         <div class="card-body">
