@@ -26,7 +26,7 @@
 function getDataFromDb()
 {
 	$.ajax({ 
-				url: "record.php" ,
+				url: "stdscan.php" ,
 				type: "POST",
 				data: ''
 			})
