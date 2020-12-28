@@ -1,25 +1,6 @@
 <?php
-  // $db = new mysqli("localhost","6239010023","pass6239010023","6239010023");
-  $db = new mysqli("localhost","root","","handgels");
-  $strSQL = "select id, studentID, prefix, fullname, record, temp, st_health from student st inner join checkted ch on st.rfidID = ch.rfidID ORDER BY ch.id DESC LIMIT 0,5";
-	$objQuery = mysqli_query($db,$strSQL);
-	$intNumField = mysqli_num_fields($objQuery);
-	$resultArray = array();
-	while($obResult = mysqli_fetch_array($objQuery))
-	{
-		$arrCol = array();
-		for($i=0;$i<$intNumField;$i++)
-		{
-			$arrCol[mysqli_fetch_field_direct($objQuery,$i)->name] = $obResult[$i];
-		}
-		array_push($resultArray,$arrCol);
-  }
-  echo json_encode($resultArray);
-
-  if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
-  }else {
-    
+require_once("db.php");
+   
   if(isset($_GET["rfid"])){
 
         $rfid = $_GET["rfid"];
@@ -49,5 +30,5 @@
   }else{
         print "ไม่มีข้อมูล";
     }
-  }
+
 ?>
