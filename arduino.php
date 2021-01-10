@@ -8,7 +8,6 @@ require_once("db.php");
         $heal = $_GET["heal"];
         $sql = "insert into checkted (rfidID,temp,st_health) values ('".$rfid."','".$temp."','".$heal."')";
         $db -> query($sql);
-        //print $sqla. " success";
 
         //อัพเดทอุณหภูมินักเรียน
         $sql = "update student set Tempreture = '".$temp."' where rfidID = '".$rfid."'";

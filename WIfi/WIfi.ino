@@ -1,8 +1,8 @@
 #include <ESP8266WiFi.h>
 #define SERVER_PORT 80          //กำหนดใช้ Port 80
 
-const char* ssid = ".@IT-LAB";               //กำหนด SSID
-const char* password = "212224236";     //กำหนด Password
+const char* ssid = ".@BNCC-EAP";
+const char* password = "";
  
 const char* server_ip = "web.bncc.ac.th";   //กำหนดชื่อ Server ที่ต้องการเชื่อมต่อ
 /* กำหนดค่าคำสั่ง HTTP GET */
@@ -14,7 +14,7 @@ int count=0;
 String str_get3  = " HTTP/1.1\r\n";
 String str_host = "Host: web.bncc.ac.th\r\n\r\n";
 
-int proxSensor= 16;
+int proxSensor= D8;
 
 WiFiServer server(SERVER_PORT);     //เปิดใช้งาน TCP Port 80
 WiFiClient client;              //ประกาศใช้  client 

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@300&family=Sarabun:ital,wght@1,200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="functions.js"></script>
+  <title>Dashboard</title>
+</head>
+<body>
+<div class ="container">
+    &nbsp;  
+    <h1 class="h2"><center>HANDGEL IOT</center></h1>
+    <p><center>โครงการเครื่องจ่ายเจลอัตโนมัติ : แถบสรุปสถานะทั้งหมด</center></p>
+</div>
+
+<div class="container">
+  &nbsp;
+  <div class="row my-4">
+      <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+          <h6>ผู้ที่สแกนทั้งหมด</h6>
+              <i class="fas fa-users"></i>
+                  <h6><span id = "totalscan"> </span> คน</h6>
+                  <p>ภาคเรียนที่ 2/2563</p>
+      </div>
+      <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">
+            <h6>อุณหภูมิเสี่ยง</h6>                            
+                <i class="fas fa-head-side-cough"></i>                        
+                    <h6><span id = "risk"> </span> คน</h6>
+                    <p>ภาคเรียนที่ 2/2563</p>
+      </div>
+      <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">                        
+            <h6>อุณหภูมิปกติ</h6>
+                <i class="fas fa-heartbeat"></i>
+                  <h6><span id = "fine"> </span> คน</h6>
+                  <p>ภาคเรียนที่ 2/2563</p>
+      </div>
+      <div class="col-12 col-md-6 mb-4 mb-lg-0 col-lg-3">               
+              <h6>อุณหภูมิเฉลี่ย</h6>                            
+                <i class="fas fa-thermometer-three-quarters"></i>
+                  <h6><span id = "avgtemp"> </span>  ํC</h6>
+                  <p>ภาคเรียนที่ 2/2563</p>                            
+      </div>
+    </div>
+</div>
+       
+<!-- นักเรียน -->
+&nbsp;
+<div class = "container">
+  <div class="row my-4">
+    <div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-9">
+        <h6>นักเรียนที่แจ้งเตือนล่าสุด</h6>
+        &nbsp;
+            <div class="table-responsive">
+            <table class="table table-striped table-bordered" style="width:100%" id="myTable">
+            <thead>
+            <tr>
+            <th width = "10%"> <div align="center">เวลาบันทึก </div></th>
+            <th width = "5%"> <div align="center">รหัส</div></th>
+            <th width = "15%"> <div align="center">ชื่อ-สกุล </div></th>
+            <th width = "5%"> <div align="center">อุณหภูมิ</div></th>
+            <th width = "5%"> <div align="center">สถานะ</div></th>
+            </tr>
+            </thead>
+            <tbody id="myBody" ></tbody>
+            </table>
+            </div>
+      </div>                                     
+      </div>
+  </div>
+</div>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="functions.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#myTable').DataTable( {
+        //"pageLength": 3,
+        "paging":   false,
+        "ordering": false,
+        "info":     false,
+        "searching": false,
+        "lengthChange": false
+    } );
+    } );
+</script>
+</body>
+</html>

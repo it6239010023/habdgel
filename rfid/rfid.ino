@@ -1,6 +1,9 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
+#include <DNSServer.h>
+#include <ESP8266WebServer.h>
+#include <WiFiManager.h>
 #include <Wire.h>
 #include <SPI.h>
 #include "MFRC522.h"
@@ -10,11 +13,12 @@
 //const char* ssid = ".@IT-LAB";
 //const char* password = "212224236";
 
-const char* ssid = "Hi Vivo";
-const char* password = "KENG5123";
+//const char* ssid = "Hi Vivo";
+//const char* password = "KENG5123";
 
 //Your Domain name with URL path or IP address with path
-String serverName = "http://web.bncc.ac.th/site/6239010023/handgel/health.php";
+//String serverName = "http://web.bncc.ac.th/site/6239010023/handgel/arduino.php";
+String serverName = "http://131.107.2.19/handgel/arduino.php";
 String rfid= "";
 int val = 0;
 int i = 0; 
@@ -43,8 +47,8 @@ void setup()
   mlx.begin(); 
   pinMode(BUZZER, OUTPUT);
   //randomSeed(analogRead(0));
-  
-  WiFi.begin(ssid, password);
+  WiFiManager wifiManager;
+  wifiManager.autoConnect("AutoConnectAP");
   Serial.println("Connecting");
   while(WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -72,7 +76,17 @@ void loop()
     if ( ! mfrc522.PICC_ReadCardSerial()) {
     return;
     }
-     
+    readcard(); //อ่านการ์ด
+    checkto(); //เช็ตอุณหภูมิ
+    sendto(); //ส่งค่าเข้าเว็บ
+    }
+      else {
+      Serial.println("WiFi Disconnected");
+      }
+      delay(1000);
+}
+
+void readcard(){
     //วัดอุณหภูมิ
     val = mlx.readObjectTempC();
     Serial.print("Temp = ");
@@ -91,8 +105,11 @@ void loop()
     rfid.toUpperCase();
     stdcode = String(rfid);
     Serial.print(rfid);
-  
-    if(val >= 37.5){
+}
+
+
+void checkto(){
+  if(val >= 37.5){
     sthealth = "COVID!";
     Serial.print(" Status : ");
     Serial.println(sthealth);
@@ -112,7 +129,9 @@ void loop()
     tone(BUZZER, 1000);
     delay(100);
     noTone(BUZZER);
+  }
   
+void sendto(){
     HTTPClient http;
       String serverPath = serverName + "?rfid=" + rfid + "&temp=" + String(val) + "&heal=" + sthealth;
 
@@ -138,9 +157,4 @@ void loop()
       // Free resources
         http.end();
       }
-    }
-      else {
-      Serial.println("WiFi Disconnected");
-      }
-      delay(1000);
-}
+  }

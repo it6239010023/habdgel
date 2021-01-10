@@ -17,7 +17,6 @@ $rst = $db->query("select avg(temp) as avgtemp from checkted where record like '
 $data = $rst->fetch_assoc();
 $avgtemp = number_format($data['avgtemp'],2);
 
-
 // หาคนร่างกายปรกติ
 $rst = $db->query("select count(temp) as fine from checkted where record like '$datenow%' and temp < 37.5");
 $data = $rst->fetch_assoc();
