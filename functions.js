@@ -20,6 +20,7 @@ function getDataFromDb()
 									tr = tr + "<td>" + val["prefix"] + val["fullname"] + "</td>";
 									tr = tr + "<td>" + val["temp"] + "ํ ํC" + "</td>";
 									tr = tr + "<td>" + val["st_health"] + "</td>";
+									tr = tr + "<td>" + val["st_hand"] + "</td>";
 									tr = tr + "</tr>";
 									$('#myTable > tbody:last').append(tr);
 						  });

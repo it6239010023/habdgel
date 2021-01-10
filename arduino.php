@@ -6,7 +6,8 @@ require_once("db.php");
         $rfid = $_GET["rfid"];
         $temp = $_GET["temp"];
         $heal = $_GET["heal"];
-        $sql = "insert into checkted (rfidID,temp,st_health) values ('".$rfid."','".$temp."','".$heal."')";
+        $hand = $_GET["hand"];
+        $sql = "insert into checkted (rfidID,temp,st_health,st_hand) values ('".$rfid."','".$temp."','".$heal."','".$hand."')";
         $db -> query($sql);
 
         //อัพเดทอุณหภูมินักเรียน
@@ -20,7 +21,7 @@ require_once("db.php");
         if ($rst->num_rows > 0) {
             while($row = $rst->fetch_assoc()) {
               echo "เลขที่นักเรียน : " .$row["studentID"]. " " .$row["prefix"]."".$row["fullname"]."";
-              echo " มีค่าอุณหภูมิ : ".$row["Tempreture"]. " c*" ." สถานะ : ".$heal."";
+              echo " มีค่าอุณหภูมิ : ".$row["Tempreture"]. " c*" ." สถานะอุณหภูมิ : ".$heal.""." สถานะเจล : ".$hand."";
             }
           } else {
             echo "ข้อมูลผิดพลาด";
