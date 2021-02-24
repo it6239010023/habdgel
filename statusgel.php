@@ -15,6 +15,5 @@ require_once("db.php");
 		array_push($resultArray,$arrCol);
 	}
 	
-	
 	echo json_encode($resultArray);
 ?>
