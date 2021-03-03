@@ -12,17 +12,38 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="functions.js"></script>
   <title>Dashboard</title>
+  <script>
+    function startTime() {
+      var today = new Date();
+      var h = today.getHours();
+      var m = today.getMinutes();
+      var s = today.getSeconds();
+      m = checkTime(m);
+      s = checkTime(s);
+      document.getElementById('showtimes').innerHTML =h + ":" + m + ":" + s;
+      var t = setTimeout(startTime, 500);
+    }
+    function checkTime(i) {
+      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+      return i;
+    }
+    </script>
 </head>
-<body>
+<body onload="startTime()">
 <div class ="container">
   <div class="main">
+    &nbsp;
     <h1 class="h1">Smart Screening Point</h1>
     <h2>โครงการจุดตรวจวัดอุณหภูมิอัจฉริยะ : แถบสรุปสถานะทั้งหมด</h2>
+    &nbsp;
+    <h2 id="showtimes"></h2>
     &nbsp;
   </div>
 </div>
 
 <div class="container">
+  &nbsp;
+  <h5>สถานะโดยรวมทั้งหมด</h5>
   &nbsp;
   <div class="row my-4">
       <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-3">
@@ -80,21 +101,16 @@
             <table class="table table-striped table-bordered" style="width:100%" id="myTable">
             <thead>
             <tr>
-            <th width = "10%"> <div align="center">เวลาบันทึก </div></th>
+            <th width = "20%"> <div align="center">เวลาบันทึก </div></th>
             <th width = "5%"> <div align="center">รหัส</div></th>
-            <th width = "15%"> <div align="center">ชื่อ-สกุล </div></th>
+            <th width = "20%"> <div align="center">ชื่อ-สกุล </div></th>
             <th width = "5%"> <div align="center">อุณหภูมิ</div></th>
-            <th width = "10%"> <div align="center">สถานะร่างกาย</div></th>
-            <th width = "5%"> <div align="center">สถานะมือ</div></th>
+            <th width = "15%"> <div align="center">สถานะร่างกาย</div></th>
             </tr>
             </thead>
             <tbody id="myBody" ></tbody>
             </table>
             </div>
-      </div>
-      <div class="col-12 col-md-12 mb-4 mb-lg-0 col-lg-4">
-        <h5>นักเรียนที่รับเจล</h5>
-        <canvas id="doughnutChart"></canvas>
       </div>
       </div>
   </div>
@@ -119,47 +135,5 @@
     } );
     } );
 </script>
-
-<script>
-  //doughnut
-  var ctxD = document.getElementById("doughnutChart").getContext('2d');
-  var myLineChart = new Chart(ctxD, {
-  type: 'doughnut',
-  data: {
-  labels: ["ไม่ได้รับเจล", "รับเจลเรียบร้อย"],
-  datasets: [{
-  data: [2, 3],
-  backgroundColor: ["#FF5A5E", "lightgreen"],
-  hoverBackgroundColor: ["#ff073a", "#39ff14"],
-  fontFamily: ["'Kodchasan', sans-serif"]
-  }]
-  },
-  options: {
-      responsive: true,
-      legend: {
-          display: true,
-          labels:{
-          fontColor :"Black",
-          fontSize:16,
-          },
-          position: 'left' 
-          },      
-      // plug in work in pie chart not work in doughnut
-      /*plugins: { //setup chartjs-plugin-labels pหlug in 
-          labels: [
-              {
-                  render: 'label',
-                  position: 'inside'
-              },
-              {
-                  render: 'percentage',
-                  position:'outside'
-              }
-          ] 
-      } */
-    }
-  });
-  </script>
-
 </body>
 </html>

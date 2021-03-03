@@ -15,12 +15,11 @@ function getDataFromDb()
 						  $("#myBody").empty();
 						  $.each(obj, function(key, val) {
 									var tr = "<tr>";
-                  					tr = tr + "<td>" + val["record"] + "</td>";
-									tr = tr + "<td>" + val["studentID"] + "</td>";
-									tr = tr + "<td>" + val["prefix"] + val["fullname"] + "</td>";
-									tr = tr + "<td>" + val["temp"] + "ํ ํC" + "</td>";
-									tr = tr + "<td>" + val["st_health"] + "</td>";
-									tr = tr + "<td>" + val["st_hand"] + "</td>";
+                  					tr = tr + "<td align =  " + "right" + " > " + val["record"] + "</td>";
+									tr = tr + "<td align =  " + "center" + " > " + val["studentID"] + "</td>";
+									tr = tr + "<td align =  " + "left" + " > " + val["prefix"] + val["fullname"] + "</td>";
+									tr = tr + "<td align =  " + "center" + " > " + val["temp"] + "  ํC" + "</td>";
+									tr = tr + "<td align =  " + "center" + " > " + val["st_health"] + "</td>";
 									tr = tr + "</tr>";
 									$('#myTable > tbody:last').append(tr);
 						  });

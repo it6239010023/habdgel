@@ -20,8 +20,7 @@ require_once("db.php");
         $rst = $db -> query($sql);
         if ($rst->num_rows > 0) {
             while($row = $rst->fetch_assoc()) {
-              echo "เลขที่นักเรียน : " .$row["studentID"]. " " .$row["prefix"]."".$row["fullname"]."";
-              echo " มีค่าอุณหภูมิ : ".$row["Tempreture"]. " c*" ." สถานะอุณหภูมิ : ".$heal.""." สถานะเจล : ".$hand."";
+              echo $row["Nickname"];
             }
           } else {
             echo "ข้อมูลผิดพลาด";

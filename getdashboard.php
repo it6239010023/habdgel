@@ -1,6 +1,6 @@
 <?php
-//$db = new mysqli("localhost","root","","handgels");
 require_once("db.php");
+date_default_timezone_set('Asia/Bangkok');
 
 $datenow = date('Y-m-d');
 
@@ -8,6 +8,7 @@ $datenow = date('Y-m-d');
 $rst = $db->query("select count(id) as total from checkted where record like '$datenow%'");
 $data = $rst->fetch_assoc();
 $total = $data['total'];
+
 // หาคนเสี่ยงติดโควิด
 $rst = $db->query("select count(temp) as risk from checkted where record like '$datenow%' and temp > 37.5");
 $data = $rst->fetch_assoc();
@@ -22,8 +23,8 @@ $rst = $db->query("select count(temp) as fine from checkted where record like '$
 $data = $rst->fetch_assoc();
 $fine = $data['fine'];
 
-
 $outArr=array("total"=>$total,"risk"=>$risk,"avgtemp"=>$avgtemp,"fine"=>$fine);
 $jsonResponse=json_encode($outArr);
 echo $jsonResponse;
 ?>
+
